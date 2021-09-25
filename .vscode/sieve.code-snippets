@@ -1,0 +1,17 @@
+{
+	// Place your CompetitiveProgramming workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	"Template": {
+		"scope": "cpp",
+		"prefix": "zzpre",
+		"body": [
+			"int sieve[N], primes[N], pcnt;\n\nvoid getSieve(){\n\tfor(int i = 2; i < N; i++){\n\t\tif(sieve[i] == 0){\n\t\t\tsieve[i] = i; primes[pcnt++] = i;\n\t\t}\n\t\tfor(int j = 0; j < pcnt and primes[j] <= sieve[i] and i*primes[j] < N; j++) sieve[i*primes[j]] = primes[j];\n\t}\n\treturn;\n}\n"
+		],
+		"description": "Template code, the above string is escaped at https://www.freeformatter.com/json-escape.html#ad-output"
+	}
+}

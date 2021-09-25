@@ -1,0 +1,17 @@
+{
+	// Place your CompetitiveProgramming workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	"Template": {
+		"scope": "cpp",
+		"prefix": "zzconvexdp",
+		"body": [
+			"/*\n\thttp://wcipeg.com/wiki/Convex_hull_trick\n\tNotes to use -\n dp[i] = min(dp[j] + b[j]*a[i]) + X;\tj < i\n dp[i][j] = min(dp[i-1][k] + b[k]*a[j]) + X; k < j\n\n\tAssumptions\n1. Lines will be inserted in DECREASING order of their slopes\n2. Queries will be answered in INCREASING order of the x-coordinate\n3. If queries are not sorted, then binary search to obtain the answer in O(logN)\n4. For maxConvexHull, sort slopes in INCREASING order and then do the same\n5. If slopes are NOT distinct, then be careful of x_intersection method.\n\n\tAsymptotics\n1. Insert O(N) amortized for insertion of all N lines\n2. Query O(Q) amortized for retrieval of all Q queries\n*/\n\n\n\nstruct line{\n\tll m, c;\n\tll get(ll x){\n\t\treturn m*x + c;\n\t}\n};\n\n// can be used when queries are in any order\nline st[N];\nstruct convexHull{\n\tint top;\n\t\n\tbool smallerIntercept(const line &l1, const line &l2, const line &l3){\n\t\treturn (l3.c - l1.c) * (l1.m - l2.m) <= (l2.c - l1.c) * (l1.m - l3.m);\n\t}\n\t\n\tconvexHull() : top(0) {\t}\n\t\n\tvoid insert(ll m, ll c){\n\t\tline l = {m, c};\n\t\t\n\t\twhile(top > 1 and smallerIntercept(st[top-2], st[top-1], l)) --top;\n\t\tst[top++] = l;\n\t\t\n\t\treturn;\n\t}\n\t\n\tll query(ll x){\n\t\tint lo = 0, hi = top-1, mid;\n\t\t\n\t\twhile(lo+1 <= hi){\n\t\t\tmid = (lo + hi) >> 1;\n\t\t\tif(st[mid].get(x) <= st[mid+1].get(x)) lo = mid+1; else hi = mid;\n\t\t}\n\t\t\n\t\treturn st[lo].get(x);\n\t}\n};\n\n\n\n// can be used only when queries are in incrasing order of x co-ordinate\nline st[N];\ndouble pos[N];\nint top, ptr;\nstruct convexHull{\n\t\n\tdouble x_intersection(const line &l1, const line &l2){ // Careful! if slopes are equal, then this is not defined!\n\t\tassert(l1.m != l2.m);\n\t\treturn ((double)(l2.c-l1.c))/(l1.m-l2.m);\n\t}\n\t\n\tconvexHull(){\n\t\ttop = ptr = 0;\n\t}\n\t\n\tvoid insert(ll m, ll c){\n\t\tline l = {m, c};\n\t\tdouble x;\n\t\t\n\t\twhile(top > 1){\t// if there are two lines in the hull before insertion of this line, try to improve the hull \n\t\t\tx = x_intersection(st[top-2], l);\n\t\t\tif(x > pos[top-1]) break;\n\t\t\t--top;\n\t\t}\n\t\t\n\t\tst[top++] = l;\n\t\tif(top > 1) // if there is more than one line in the hull after insertion of the current line\n\t\t\tpos[top-1] = x_intersection(st[top-1], st[top-2]);\n\t\treturn;\n\t}\n\t\n\tll query(ll x){\n\t\twhile(ptr < top-1 and pos[ptr+1] <= x) ptr++; // find the line whose range straddles point x\n\t\treturn st[ptr].get(x);\n\t}\n};"
+		],
+		"description": "Template code, the above string is escaped at https://www.freeformatter.com/json-escape.html#ad-output"
+	}
+}
