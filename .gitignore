@@ -5,5 +5,6 @@
 /learning
 /template
 /stuff
-/Library/*.out
-/Library/*.in
+/Library/a.out
+/Library/inp.in
+/Library/out.in
