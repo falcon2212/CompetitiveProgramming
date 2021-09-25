@@ -1,0 +1,17 @@
+{
+	// Place your CompetitiveProgramming workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	"Template": {
+		"scope": "cpp",
+		"prefix": "zzlowerbound",
+		"body": [
+			"int lowerbound(vector<int>& a, int x){\r\n    \/\/ 0-based index of first element in a <= x\r\n    \/\/ -1 if it doesn't exist\r\n    int lo = -1; \/\/a[l] <= x\r\n    int hi =  a.size(); \/\/ a[r] > x\r\n    while(lo+1 < hi){\r\n        int mid = lo+(hi-lo)\/2;\r\n        if(a[mid] <= x) lo = mid;\r\n        else hi = mid;\r\n    }\r\n    return (lo==a.size())? -1: lo;\r\n}"
+		],
+		"description": "Template code, the above string is escaped at https://www.freeformatter.com/json-escape.html#ad-output"
+	}
+}
